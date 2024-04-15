@@ -13,7 +13,7 @@ PGDATABASE=my_test_database
 
 ## Endpoints
 ### endpoint not found
-If the endpoint is not found, responds with a status of 400 and "not found"
+If the endpoint is not found, responds with a status of 404 and "not found"
 
 ### server error
 If a server error is encountered, responds with a status of 500 and "internal server error"
