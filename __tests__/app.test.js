@@ -27,13 +27,13 @@ describe("/api/topics", () => {
         });
       });
   });
-  test("GET 404: If the endpoint is not found, responds with a status of 404 and 'not found'", () => {
+  test("GET 400: If the endpoint is not found, responds with a status of 400 and 'invalid request'", () => {
     return request(app)
       .get("/api/not_northcoders")
-      .expect(404)
+      .expect(400)
       .then(({ body }) => {
         const { message } = body;
-        expect(message).toBe("not found");
+        expect(message).toBe("invalid request");
       });
   });
 });

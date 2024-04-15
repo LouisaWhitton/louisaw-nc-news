@@ -9,7 +9,7 @@ app.get("/api", getEndpoints);
 app.get("/api/topics", getTopics);
 
 app.all("*", (req, res, next) => {
-  res.status(404).send({ message: "not found" });
+  res.status(400).send({ message: "invalid request" });
   next();
 });
 
