@@ -18,6 +18,9 @@ If the endpoint is not found, responds with a status of 400 and "not found"
 ### server error
 If a server error is encountered, responds with a status of 500 and "internal server error"
 
+### /api
+Responds with a json representation of all the available endpoints of the api
+
 ### /api/topics
 #### GET
 Responds with an array of topic objects, each of which should have the following properties:
