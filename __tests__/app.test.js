@@ -90,3 +90,50 @@ describe("/api/articles/:article_id", () => {
       });
   });
 });
+
+describe("/api/articles", () => {
+  test("GET 200: returns array of articles with the specified properties (there should be no 'body' property)", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles.length).toBe(13);
+        articles.forEach((article) => {
+          expect(typeof article.author).toBe("string");
+          expect(typeof article.title).toBe("string");
+          expect(typeof article.article_id).toBe("number");
+          expect(typeof article.topic).toBe("string");
+          expect(typeof article.created_at).toBe("string");
+          expect(typeof article.votes).toBe("number");
+          expect(typeof article.article_img_url).toBe("string");
+          expect(typeof article.body).toBe("undefined");
+        });
+      });
+  });
+  test("GET 200: 'comment_count' should be total count of all comments with this article_id", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        articles.forEach((article) => {
+          if (article.article_id === 1) {
+            expect(Number(article.comment_count)).toBe(11);
+          }
+          if (article.article_id === 2) {
+            expect(Number(article.comment_count)).toBe(0);
+          }
+        });
+      });
+  });
+  test("GET 200: articles should be sorted by date in descending order", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toBeSortedBy("created_at", { descending: true });
+      });    
+  }) 
+});

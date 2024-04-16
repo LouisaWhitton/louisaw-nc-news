@@ -21,6 +21,22 @@ If a server error is encountered, responds with a status of 500 and "internal se
 ### /api
 Responds with a json representation of all the available endpoints of the api
 
+### /api/articles
+#### GET
+Responds with an array of article objects, each of which should have the following properties:
+    author
+    title
+    article_id
+    topic
+    created_at
+    votes
+    article_img_url
+    comment_count
+
+'comment_count' is a count of all the comments with this 'article_id'
+
+The articles are sorted by 'create_at' date descending
+
 ### /api/articles/:article_id
 #### GET
 Responds with an article object for the requested article_id with the following properties:
