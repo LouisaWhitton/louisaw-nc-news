@@ -48,3 +48,45 @@ describe("/api", () => {
       });
   });
 });
+
+describe("/api/articles", () => {
+  test("GET 200: when sent a valid article_id, responds with an 'article' object containing all required properties", () => {
+    return request(app)
+      .get("/api/articles/5")
+      .expect(200)
+      .then(({ body }) => {
+        const article = body.article[0];
+        const expected = {
+          author: "rogersop",
+          title: "UNCOVERED: catspiracy to bring down democracy",
+          article_id: 5,
+          body: "Bastet walks amongst us, and the cats are taking arms!",
+          topic: "cats",
+          votes: 0,
+          article_img_url:
+            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        };
+        expect(typeof article.created_at).toBe("string");
+        expect(article).toEqual(expect.objectContaining(expected));
+      });
+  });
+  test("GET 400: when sent an article_id that is not a number, responds with 'invalid request'", () => {
+    return request(app)
+      .get("/api/articles/not_a_number")
+      .expect(400)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("invalid request");
+      });
+  });
+
+  test("GET 404: when sent an article_id that is a number but does not match a valid article, responds with 'article not found'", () => {
+    return request(app)
+      .get("/api/articles/14")
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("article not found");
+      });
+  });
+});
