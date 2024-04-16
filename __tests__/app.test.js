@@ -49,7 +49,7 @@ describe("/api", () => {
   });
 });
 
-describe("/api/articles", () => {
+describe("/api/articles/:article_id", () => {
   test("GET 200: when sent a valid article_id, responds with an 'article' object containing all required properties", () => {
     return request(app)
       .get("/api/articles/5")
