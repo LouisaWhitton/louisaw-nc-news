@@ -54,6 +54,7 @@ If 'article_id' is not a number, responds with 400 and 'invalid request'
 If no article exists for the requested article_id, responds with 404 and 'article not found'
 
 ### /api/articles/:article_id/comments
+#### GET
 Responds with an array of comments objects for the requested article_id with the following properties:
     comment_id
     votes
@@ -67,6 +68,15 @@ If 'article_id' is not a number, responds with 400 and 'invalid request'
 If no article exists for the requested article_id, responds with 404 and 'article not found'
 
 If no comments exist for the requested article_id, responds with 404 and 'no comments yet!'
+
+#### POST
+When passed an object containing 'username' and 'body' properties, adds a comment with the requested article_id
+
+Responds with a 'comments' object representing the inserted comment
+
+If no article exists for the requested article_id, responds with 404 and 'article not found'
+
+If an invalid object is passed, responds with 400 and 'invalid input'
 
 ### /api/topics
 #### GET

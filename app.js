@@ -6,7 +6,9 @@ const {
   getArticles,
   getArticlesById,
 } = require("./controllers/articles.controllers");
-const { getCommentsForArticle } = require("./controllers/comments.controllers");
+const { getCommentsForArticle, postComments } = require("./controllers/comments.controllers");
+
+app.use(express.json());
 
 app.get("/api", getEndpoints);
 
@@ -17,6 +19,8 @@ app.get("/api/articles/:article_id", getArticlesById);
 app.get("/api/articles/:article_id/comments", getCommentsForArticle);
 
 app.get("/api/topics", getTopics);
+
+app.post("/api/articles/:article_id/comments", postComments);
 
 app.all("*", (req, res, next) => {
   res.status(400).send({ message: "invalid request" });
