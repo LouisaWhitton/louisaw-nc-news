@@ -53,6 +53,21 @@ If 'article_id' is not a number, responds with 400 and 'invalid request'
 
 If no article exists for the requested article_id, responds with 404 and 'article not found'
 
+### /api/articles/:article_id/comments
+Responds with an array of comments objects for the requested article_id with the following properties:
+    comment_id
+    votes
+    created_at
+    author
+    body
+    article_id
+
+If 'article_id' is not a number, responds with 400 and 'invalid request'
+
+If no article exists for the requested article_id, responds with 404 and 'article not found'
+
+If no comments exist for the requested article_id, responds with 404 and 'no comments yet!'
+
 ### /api/topics
 #### GET
 Responds with an array of topic objects, each of which should have the following properties:
