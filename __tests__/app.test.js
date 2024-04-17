@@ -137,3 +137,45 @@ describe("/api/articles", () => {
       });    
   }) 
 });
+
+describe("/api/articles/:article_id/comments", () => {
+  test("GET 200: returns an array of comments for the given article_id with the specified properties", () => {
+    return request(app)
+      .get("/api/articles/9/comments")
+      .expect(200)
+      .then(({ body }) => {
+        const { comments } = body;
+        expect(comments.length).toBe(2)
+        const expected = {
+          votes: 20,
+          author: "icellusedkars",
+          body: "The owls are not what they seem.",
+          article_id: 9
+        };
+        comments.forEach((comment) => {
+          if(comment.comment_id === 17){
+            expect(comment).toEqual(expect.objectContaining(expected));
+          }
+          expect(typeof comment.created_at).toBe("string");
+        })
+      });
+  });
+  test("GET 404: if no comments are found for the given article_id, returns 'no comments yet!'", () => {
+    return request(app)
+    .get("/api/articles/2/comments")
+    .expect(404)
+    .then(({ body }) => {
+      const { message } = body;
+      expect(message).toBe("no comments yet!");
+    })
+  })
+  test("GET 404: if no article is found for the given article_id, returns 'article not found'", () => {
+    return request(app)
+    .get("/api/articles/14/comments")
+    .expect(404)
+    .then(({ body }) => {
+      const { message } = body;
+      expect(message).toBe("article not found");
+    })
+  })
+})
