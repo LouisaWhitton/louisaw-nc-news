@@ -134,8 +134,8 @@ describe("/api/articles", () => {
       .then(({ body }) => {
         const { articles } = body;
         expect(articles).toBeSortedBy("created_at", { descending: true });
-      });    
-  }) 
+      });
+  });
 });
 
 describe("/api/articles/:article_id/comments", () => {
@@ -145,37 +145,87 @@ describe("/api/articles/:article_id/comments", () => {
       .expect(200)
       .then(({ body }) => {
         const { comments } = body;
-        expect(comments.length).toBe(2)
+        expect(comments.length).toBe(2);
         const expected = {
           votes: 20,
           author: "icellusedkars",
           body: "The owls are not what they seem.",
-          article_id: 9
+          article_id: 9,
         };
         comments.forEach((comment) => {
-          if(comment.comment_id === 17){
+          if (comment.comment_id === 17) {
             expect(comment).toEqual(expect.objectContaining(expected));
           }
           expect(typeof comment.created_at).toBe("string");
-        })
+        });
       });
   });
   test("GET 404: if no comments are found for the given article_id, returns 'no comments yet!'", () => {
     return request(app)
-    .get("/api/articles/2/comments")
-    .expect(404)
-    .then(({ body }) => {
-      const { message } = body;
-      expect(message).toBe("no comments yet!");
-    })
-  })
+      .get("/api/articles/2/comments")
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("no comments yet!");
+      });
+  });
   test("GET 404: if no article is found for the given article_id, returns 'article not found'", () => {
     return request(app)
-    .get("/api/articles/14/comments")
+      .get("/api/articles/14/comments")
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("article not found");
+      });
+  });
+  test("POST 201: adds a comment for the given article_id and responds with the posted comment", () => {
+    const commentToAdd = {
+      username: "butter_bridge",
+      body: "This is a test comment",
+    };
+    const expectedComment = {
+      comment_id: 19,
+      votes: 0,
+      author: "butter_bridge",
+      body: "This is a test comment",
+      article_id: 5,
+    };
+    return request(app)
+      .post("/api/articles/5/comments")
+      .send(commentToAdd)
+      .expect(201)
+      .then(({ body }) => {
+        const { comment } = body;
+        expect(comment).toEqual(expect.objectContaining(expectedComment));
+        expect(typeof comment.created_at).toBe("string");
+      });
+  });
+  test("POST 400: returns an error of 'invalid input' when an invalid object is sent", () => {
+    const commentToAdd = {
+      constant_name: "pi",
+      constant_value: 3.14159,
+    };
+    return request(app)
+      .post("/api/articles/5/comments")
+      .send(commentToAdd)
+      .expect(400)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("invalid input");
+      });
+  });
+  test("POST 404: if no article is found for the given article_id, returns 'article not found'", () => {
+    const commentToAdd = {
+      username: "butter_bridge",
+      body: "This is a test comment",
+    };
+    return request(app)
+    .post("/api/articles/14/comments")
+    .send(commentToAdd)
     .expect(404)
     .then(({ body }) => {
       const { message } = body;
       expect(message).toBe("article not found");
-    })
+    });
   })
-})
+});
