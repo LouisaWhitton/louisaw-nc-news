@@ -6,12 +6,15 @@ const {
   getArticles,
   getArticlesById,
 } = require("./controllers/articles.controllers");
+const { getCommentsForArticle } = require("./controllers/comments.controllers");
 
 app.get("/api", getEndpoints);
 
 app.get("/api/articles", getArticles);
 
 app.get("/api/articles/:article_id", getArticlesById);
+
+app.get("/api/articles/:article_id/comments", getCommentsForArticle);
 
 app.get("/api/topics", getTopics);
 
