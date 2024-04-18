@@ -5,8 +5,12 @@ const { getTopics } = require("./controllers/topics.controllers");
 const {
   getArticles,
   getArticlesById,
+  patchArticle,
 } = require("./controllers/articles.controllers");
-const { getCommentsForArticle, postComments } = require("./controllers/comments.controllers");
+const {
+  getCommentsForArticle,
+  postComments,
+} = require("./controllers/comments.controllers");
 
 app.use(express.json());
 
@@ -19,6 +23,8 @@ app.get("/api/articles/:article_id", getArticlesById);
 app.get("/api/articles/:article_id/comments", getCommentsForArticle);
 
 app.get("/api/topics", getTopics);
+
+app.patch("/api/articles/:article_id", patchArticle);
 
 app.post("/api/articles/:article_id/comments", postComments);
 
