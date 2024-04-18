@@ -22,10 +22,10 @@ exports.insertComment = (comment, article_id) => {
   if (!validInput) {
     return Promise.reject({ status: 400, message: "invalid input" });
   }
-
+  commentArray.push(article_id);
   return db
     .query(
-      `INSERT INTO comments (body, article_id, author, votes) VALUES ($2,${article_id},$1,0) RETURNING *;`,
+      `INSERT INTO comments (body, article_id, author, votes) VALUES ($2,$3,$1,0) RETURNING *;`,
       commentArray
     )
     .then((insertedComment) => {

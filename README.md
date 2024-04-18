@@ -53,6 +53,15 @@ If 'article_id' is not a number, responds with 400 and 'invalid request'
 
 If no article exists for the requested article_id, responds with 404 and 'article not found'
 
+#### PATCH
+When passed an object containing an 'inc_votes' property with a positive or negative integer value, adjusts the 'votes' on the requested article_id by the specified value 
+
+Responds with an 'article' object representing the updated article
+
+If no article exists for the requested article_id, responds with 404 and 'article not found'
+
+If an invalid object is passed, responds with 400 and 'invalid input'
+
 ### /api/articles/:article_id/comments
 #### GET
 Responds with an array of comments objects for the requested article_id with the following properties:
