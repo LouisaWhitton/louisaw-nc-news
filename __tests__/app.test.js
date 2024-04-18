@@ -220,36 +220,36 @@ describe("/api/articles/:article_id/comments", () => {
       body: "This is a test comment",
     };
     return request(app)
-    .post("/api/articles/14/comments")
-    .send(commentToAdd)
-    .expect(404)
-    .then(({ body }) => {
-      const { message } = body;
-      expect(message).toBe("article not found");
-    });
-  })
+      .post("/api/articles/14/comments")
+      .send(commentToAdd)
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("article not found");
+      });
+  });
   test("PATCH 201: when sent a valid 'inc_votes' object, increments the given article's vote property by the specified amount", () => {
     const incVotes = { inc_votes: 100 };
     return request(app)
-    .patch("/api/articles/5")
-    .send(incVotes)
-    .expect(201)
-    .then(({ body }) => {
-      const article = body.article;
-      const expected = {
-        author: "rogersop",
-        title: "UNCOVERED: catspiracy to bring down democracy",
-        article_id: 5,
-        body: "Bastet walks amongst us, and the cats are taking arms!",
-        topic: "cats",
-        votes: 100,
-        article_img_url:
-          "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
-      };
-      expect(typeof article.created_at).toBe("string");
-      expect(article).toEqual(expect.objectContaining(expected));
-    })
-  })
+      .patch("/api/articles/5")
+      .send(incVotes)
+      .expect(201)
+      .then(({ body }) => {
+        const article = body.article;
+        const expected = {
+          author: "rogersop",
+          title: "UNCOVERED: catspiracy to bring down democracy",
+          article_id: 5,
+          body: "Bastet walks amongst us, and the cats are taking arms!",
+          topic: "cats",
+          votes: 100,
+          article_img_url:
+            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        };
+        expect(typeof article.created_at).toBe("string");
+        expect(article).toEqual(expect.objectContaining(expected));
+      });
+  });
   test("PATCH 400: returns an error of 'invalid input' when an invalid object is sent", () => {
     const incVotes = { constant_name: "pi" };
     return request(app)
@@ -264,12 +264,30 @@ describe("/api/articles/:article_id/comments", () => {
   test("PATCH 404: if no article is found for the given article_id, returns 'article not found'", () => {
     const incVotes = { inc_votes: 100 };
     return request(app)
-    .patch("/api/articles/14")
-    .send(incVotes)
-    .expect(404)
-    .then(({ body }) => {
-      const { message } = body;
-      expect(message).toBe("article not found");
-    });
+      .patch("/api/articles/14")
+      .send(incVotes)
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("article not found");
+      });
+  });
+});
+
+describe("/api/comments/:comment_id", () => {
+  test("DELETE 204: deletes the comment with the given comment_id", () => {
+    return request(app)
+    .del("/api/comments/16")
+    .expect(204);
   })
+
+  test("DELETE 404: if no comment is found for the given comment_id, returns 'comment not found'", () => {
+    return request(app)
+      .del("/api/comments/19")
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("comment not found");
+      });
+  });
 });

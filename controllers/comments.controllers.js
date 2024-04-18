@@ -3,6 +3,7 @@ const {
   selectCommentsForArticle,
   insertComment,
   checkCommentExists,
+  deleteComment
 } = require("../models/comments.models");
 
 exports.getCommentsForArticle = (req, res, next) => {
@@ -28,6 +29,21 @@ exports.postComments = (req, res, next) => {
     })
     .then((insertedComment) => {
       res.status(201).send({ comment: insertedComment });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.removeComment = (req, res, next) => {
+  const { comment_id } = req.params;
+  
+  checkCommentExists(comment_id)
+    .then(() => {
+      return deleteComment(comment_id);
+    })
+    .then((deletedComment) => {
+      res.status(204).send();
     })
     .catch((err) => {
       next(err);
