@@ -10,6 +10,7 @@ const {
 const {
   getCommentsForArticle,
   postComments,
+  removeComment
 } = require("./controllers/comments.controllers");
 
 app.use(express.json());
@@ -27,6 +28,8 @@ app.get("/api/topics", getTopics);
 app.patch("/api/articles/:article_id", patchArticle);
 
 app.post("/api/articles/:article_id/comments", postComments);
+
+app.delete("/api/comments/:comment_id", removeComment);
 
 app.all("*", (req, res, next) => {
   res.status(400).send({ message: "invalid request" });
