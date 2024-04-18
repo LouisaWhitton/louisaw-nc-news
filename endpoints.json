@@ -45,6 +45,19 @@
       ]
     }
   },
+  "GET /api/users": {
+    "description": "serves an array of all users",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "username": "butter_bridge",
+          "name": "jonny",
+          "avatar_url": "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg"
+        }
+      ]
+    }
+  },
   "PATCH /api/articles/:article_id": {
     "description": "passed an object containing an 'inc_votes' property with a positive or negative integer value, adjusts the 'votes' on the requested article_id by the specified value",
     "queries": [],
