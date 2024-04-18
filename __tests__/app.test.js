@@ -291,3 +291,29 @@ describe("/api/comments/:comment_id", () => {
       });
   });
 });
+
+describe("/api/users", () => {
+  test("GET 200: returns an array of user objects with the specified properties", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body }) => {
+        const { users } = body;
+        expect(users.length).toBe(4);
+        users.forEach((user) => {
+          expect(typeof user.username).toBe("string");
+          expect(typeof user.name).toBe("string");
+          expect(typeof user.avatar_url).toBe("string")
+        });
+      });
+  })
+  test("GET 404: if no users are found, returns 'no users found", () => {
+    return request(app)
+      .get("/api/users?test_no_users=y")
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("no users found");
+      });
+  });
+})

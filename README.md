@@ -98,3 +98,12 @@ If no comment exists for the requested comment_id, responds with 404 and 'commen
 Responds with an array of topic objects, each of which should have the following properties:
     slug
     description
+
+### /api/users
+#### GET
+Responds with an array of user objects, each of which should have the following properties:
+    username
+    name
+    avatar_url
+
+If no users are found, responds with 404 and 'no users found'
