@@ -246,7 +246,6 @@ describe("/api/articles/:article_id/comments", () => {
         article_img_url:
           "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
       };
-      console.log(article, "<<< article")
       expect(typeof article.created_at).toBe("string");
       expect(article).toEqual(expect.objectContaining(expected));
     })
