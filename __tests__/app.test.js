@@ -170,10 +170,10 @@ describe("/api/articles/:article_id/comments", () => {
         });
       });
   });
-  test("GET 404: if no comments are found for the given article_id, returns 'no comments yet!'", () => {
+  test("GET 200: if no comments are found for the given article_id, returns 'no comments yet!'", () => {
     return request(app)
       .get("/api/articles/2/comments")
-      .expect(404)
+      .expect(200)
       .then(({ body }) => {
         const { message } = body;
         expect(message).toBe("no comments yet!");

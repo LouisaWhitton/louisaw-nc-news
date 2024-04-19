@@ -11,7 +11,7 @@ exports.getCommentsForArticle = (req, res, next) => {
   selectCommentsForArticle(article_id)
     .then((comments) => {
       if (comments.length === 0) {
-        res.status(404).send({ message: "no comments yet!" });
+        res.status(200).send({ message: "no comments yet!" });
       }
       res.status(200).send({ comments });
     })
