@@ -1,5 +1,32 @@
 # Northcoders News API
 
+The Northcoders News API is an API for returning articles, comments and related information from the Northcoders News database
+
+Responses are in the form of JSON objects.
+
+I created this API as a project on Northcoders' Software Development Bootcamp
+
+The hosted version can be found at https://louisaw-nc-news.onrender.com
+
+## Prerequisites
+
+Node.js - minimum version: v21.6.2
+PostgreSQL - minimum version: v15.6
+
+The following dependencies should be installed:
+
+dotenv - install using `npm install dotenv`
+express - install using `npm install express`
+node-postgres - install `npm install pg`
+jest - install using `npm install jest -D`
+jest-sorted - install using `npm install jest-sorted -D`
+supertest - install using `npm install supertest -D`
+
+## Cloning the git repository
+
+Start by cloning the GitHub repository using the following command in your terminal:
+`git clone https://github.com/LouisaWhitton/louisaw-nc-news.git`
+
 ## Creating environment variables
 
 Before commencing development, create two files to contain the environment variables:
