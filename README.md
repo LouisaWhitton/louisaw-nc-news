@@ -51,6 +51,9 @@ Responds with an article object for the requested article_id with the following 
     created_at
     votes
     article_img_url
+    comment_count
+
+'comment_count' is a count of all the comments with this 'article_id'
 
 If 'article_id' is not a number, responds with 400 and 'invalid request'
 
