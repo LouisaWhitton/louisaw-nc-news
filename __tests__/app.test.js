@@ -116,6 +116,7 @@ describe("/api/articles", () => {
           expect(typeof article.created_at).toBe("string");
           expect(typeof article.votes).toBe("number");
           expect(typeof article.article_img_url).toBe("string");
+          expect(typeof article.comment_count).toBe("string");
           expect(typeof article.body).toBe("undefined");
         });
       });
