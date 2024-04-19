@@ -9,8 +9,15 @@ exports.selectCommentsForArticle = (article_id) => {
       [article_id]
     ),
     selectArticlesById(article_id),
-  ]).then((promises) => {
+  ])
+  .then((promises) => {
     return promises[0].rows;
+  })
+  .then((rows) => {
+    if(rows.length === 0){
+      return Promise.reject({ status: 200, message: "no comments yet!" });
+    }
+    return rows;
   });
 };
 
