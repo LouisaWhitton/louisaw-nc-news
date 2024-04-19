@@ -37,6 +37,9 @@ Responds with an array of article objects, each of which should have the followi
 
 The articles are sorted by 'create_at' date descending
 
+The articles can be filtered using a query of "?topic=" 
+If the queried topic does not exist, responds with 404 and 'topic not found'
+
 ### /api/articles/:article_id
 #### GET
 Responds with an article object for the requested article_id with the following properties:

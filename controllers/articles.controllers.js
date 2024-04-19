@@ -5,14 +5,23 @@ const {
   checkArticleExists
 } = require("../models/articles.models");
 
+const {
+  checkTopicExists
+} = require("../models/topics.models");
+
 exports.getArticles = (req, res, next) => {
-  selectArticles()
-    .then((articles) => {
-      res.status(200).send({ articles });
-    })
-    .catch((err) => {
-      next(err);
-    });
+  const { topic } = req.query;
+  
+  checkTopicExists(topic)
+  .then(() => {
+    return selectArticles(topic);
+  })
+  .then((articles) => {
+    res.status(200).send({ articles });
+  })
+  .catch((err) => {
+    next(err);
+  });
 };
 
 exports.getArticlesById = (req, res, next) => {
