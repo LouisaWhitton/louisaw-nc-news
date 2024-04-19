@@ -1,5 +1,18 @@
 # Northcoders News API
 
+The Northcoders News API is an API for returning articles, comments and related information from the Northcoders News database
+
+Responses are in the form of JSON objects.
+
+I created this API as a project on Northcoders' Software Development Bootcamp
+
+The hosted version can be found at https://louisaw-nc-news.onrender.com
+
+## Prerequisites
+
+Node.js - minimum version: v21.6.2
+PostgreSQL - minimum version: v15.6
+
 ## Creating environment variables
 
 Before commencing development, create two files to contain the environment variables:
