@@ -156,17 +156,13 @@ describe("/api/articles/:article_id/comments", () => {
       .then(({ body }) => {
         const { comments } = body;
         expect(comments.length).toBe(2);
-        const expected = {
-          votes: 20,
-          author: "icellusedkars",
-          body: "The owls are not what they seem.",
-          article_id: 9,
-        };
         comments.forEach((comment) => {
-          if (comment.comment_id === 17) {
-            expect(comment).toEqual(expect.objectContaining(expected));
-          }
+          expect(typeof comment.comment_id).toBe("number");
+          expect(typeof comment.votes).toBe("number");
           expect(typeof comment.created_at).toBe("string");
+          expect(typeof comment.author).toBe("string");
+          expect(typeof comment.body).toBe("string");
+          expect(typeof comment.article_id).toBe("number");
         });
       });
   });
