@@ -35,7 +35,7 @@ app.post("/api/articles/:article_id/comments", postComments);
 app.delete("/api/comments/:comment_id", removeComment);
 
 app.all("*", (req, res, next) => {
-  res.status(400).send({ message: "invalid request" });
+  res.status(404).send({ message: "not found" });
   next();
 });
 
