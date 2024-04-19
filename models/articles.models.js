@@ -20,10 +20,6 @@ exports.selectArticles = (topic) => {
 };
 
 exports.selectArticlesById = (article_id) => {
-  if (isNaN(article_id)) {
-    return Promise.reject({ status: 400, message: "invalid request" });
-  }
-
   const sqlString = `
   SELECT a.author, a.title, a.article_id, a.body, a.topic, a.created_at, a.votes, a.article_img_url, COUNT(c.comment_id) AS comment_count
   FROM articles AS a
