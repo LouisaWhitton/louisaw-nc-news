@@ -317,3 +317,33 @@ describe("/api/users", () => {
       });
   });
 })
+
+describe("/api/articles (topic query)", () => {
+  test("GET 200: returns an array of articles for the requested topic", () => {
+    return request(app)
+    .get("/api/articles?topic=mitch")
+    .expect(200)
+    .then(({ body }) => {
+      const { articles } = body;
+      expect(articles.length).toBe(12);
+      articles.forEach((article) => {
+        expect(typeof article.author).toBe("string");
+        expect(typeof article.title).toBe("string");
+        expect(typeof article.article_id).toBe("number");
+        expect(typeof article.topic).toBe("string");
+        expect(typeof article.created_at).toBe("string");
+        expect(typeof article.votes).toBe("number");
+        expect(typeof article.article_img_url).toBe("string");
+      });
+    });
+  })
+  test("GET 404: if queried topic is not found, returns 'topic not found'", () => {
+    return request(app)
+      .get("/api/articles?topic=unicorns")
+      .expect(404)
+      .then(({ body }) => {
+        const { message } = body;
+        expect(message).toBe("topic not found");
+      });
+  });
+})
